@@ -9,6 +9,7 @@
 UserInterfaceState.xcuserstate
 $RECYCLE.BIN/
 
+
 *.log
 log.txt
 
@@ -22,6 +23,9 @@ log.txt
 /www
 /platforms
 /plugins
+
+#Angular Json
+/angular.json
 
 # Compiled output
 /dist
