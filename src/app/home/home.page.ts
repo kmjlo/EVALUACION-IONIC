@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController } from '@ionic/angular';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -10,11 +11,14 @@ export class HomePage {
   username: string = '';
   password: string = '';
 
+
   constructor(private navCtrl: NavController, private alertController: AlertController) {}
 
   // Función para validar el nombre de usuario y la contraseña
   async onLogin() {
     // Verifica que los campos no estén vacíos
+    
+
     if (this.username.trim() === '' || this.password.trim() === '') {
       const alert = await this.alertController.create({
         header: 'Error',
