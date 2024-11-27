@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController } from '@ionic/angular';
+import { AuthenticatorService } from '../servicio/auth.service';
 
 
 @Component({
@@ -12,7 +13,7 @@ export class HomePage {
   password: string = '';
 
 
-  constructor(private navCtrl: NavController, private alertController: AlertController) {}
+  constructor(private navCtrl: NavController, private alertController: AlertController, private auth: AuthenticatorService) {}
 
   // Función para validar el nombre de usuario y la contraseña
   async onLogin() {
@@ -49,11 +50,31 @@ export class HomePage {
       return;
     }
 
-    console.log('Ingreso exitoso');
-    this.navCtrl.navigateForward(`/welcome/${this.username}`);
+    
+
+    this.auth.login(this.username, this.password).subscribe(
+      async (response: any) => {
+        // Si la respuesta es positiva, redirige al usuario
+        console.log('Ingreso exitoso', response);
+        this.navCtrl.navigateForward(`/welcome/${this.username}`);
+      },
+      async (error: any) => {
+        // Si las credenciales no son correctas, muestra un error
+        const alert = await this.alertController.create({
+          header: 'Error',
+          message: 'Nombre de usuario o contraseña incorrectos',
+          buttons: ['OK']
+        });
+        await alert.present();
+      }
+    );
+
   }
 
   onResetPassword() {
     this.navCtrl.navigateForward('/reset-password');
   }
+
+  
 }
+
